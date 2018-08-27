@@ -1,6 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+PORT = process.env.PORT || 5000,
+    express = require('express'),
+    app = express();
+
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.listen(PORT, () => console.log('Example app listening on port 3000!'));
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://mongo ds135290.mlab.com:35290/fast-beyond-22100 -u Rafal -p password1', {
     useNewUrlParser: true
@@ -17,14 +25,14 @@ const userSchema = new Schema({
 });
 
 //Mongoose schema method
-userSchema.methods.manify = function(next) {
+userSchema.methods.manify = function (next) {
     this.name = this.name + '-boy';
 
     return next(null, this.name);
 };
 
 //pre-save method
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
     //pobranie aktualnego czasu
     const currentDate = new Date();
 
@@ -47,7 +55,7 @@ const kenny = new User({
     password: 'password'
 });
 
-kenny.manify(function(err, name) {
+kenny.manify(function (err, name) {
     if (err) throw err;
     console.log('Twoje nowe imię to: ' + name);
 });
@@ -58,7 +66,7 @@ const benny = new User({
     password: 'password'
 });
 
-benny.manify(function(err, name) {
+benny.manify(function (err, name) {
     if (err) throw err;
     console.log('Twoje nowe imię to: ' + name);
 });
@@ -69,36 +77,36 @@ const mark = new User({
     password: 'password'
 });
 
-mark.manify(function(err, name) {
+mark.manify(function (err, name) {
     if (err) throw err;
     console.log('Twoje nowe imię to: ' + name);
 });
 
-const findAllUsers = function() {
+const findAllUsers = function () {
     // find all users
-    return User.find({}, function(err, res) {
+    return User.find({}, function (err, res) {
         if (err) throw err;
         console.log('Actual database records are ' + res);
     });
 }
 
-const findSpecificRecord = function() {
+const findSpecificRecord = function () {
     // find specific record
-    return User.find({ username: 'Kenny_the_boy' }, function(err, res) {
+    return User.find({ username: 'Kenny_the_boy' }, function (err, res) {
         if (err) throw err;
         console.log('Record you are looking for is ' + res);
     })
 }
 
-const updadeUserPassword = function() {
+const updadeUserPassword = function () {
     // update user password
     return User.findOne({ username: 'Kenny_the_boy' })
-        .then(function(user) {
+        .then(function (user) {
             console.log('Old password is ' + user.password);
             console.log('Name ' + user.name);
             user.password = 'newPassword';
             console.log('New password is ' + user.password);
-            return user.save(function(err) {
+            return user.save(function (err) {
                 if (err) throw err;
 
                 console.log('Uzytkownik ' + user.name + ' zostal pomyslnie zaktualizowany');
@@ -106,40 +114,40 @@ const updadeUserPassword = function() {
         })
 }
 
-const updateUsername = function() {
+const updateUsername = function () {
     // update username
-    return User.findOneAndUpdate({ username: 'Benny_the_boy' }, { username: 'Benny_the_man' }, { new: true }, function(err, user) {
+    return User.findOneAndUpdate({ username: 'Benny_the_boy' }, { username: 'Benny_the_man' }, { new: true }, function (err, user) {
         if (err) throw err;
 
         console.log('Nazwa uzytkownika po aktualizacji to ' + user.username);
     })
 }
 
-const findMarkAndDelete = function() {
+const findMarkAndDelete = function () {
     // find specific user and delete
     return User.findOne({ username: 'Mark_the_boy' })
-        .then(function(user) {
-            return user.remove(function() {
+        .then(function (user) {
+            return user.remove(function () {
                 console.log('User successfully deleted');
             });
         })
 }
 
-const findKennyAndDelete = function() {
+const findKennyAndDelete = function () {
     // find specific user and delete
     return User.findOne({ username: 'Kenny_the_boy' })
-        .then(function(user) {
-            return user.remove(function() {
+        .then(function (user) {
+            return user.remove(function () {
                 console.log('User successfully deleted');
             });
         });
 }
 
-const findBennyAndRemove = function() {
+const findBennyAndRemove = function () {
     // find specific user and delete
     return User.findOneAndRemove({ username: 'Benny_the_man' })
-        .then(function(user) {
-            return user.remove(function() {
+        .then(function (user) {
+            return user.remove(function () {
                 console.log('User successfully deleted');
             });
         });
