@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/nodeappdatabase', {
+mongoose.connect('mongodb://mongo ds135290.mlab.com:35290/fast-beyond-22100 -u Rafal -p password1', {
     useNewUrlParser: true
 });
 
