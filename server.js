@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 5000,
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-app.listen(PORT, () => console.log('Example app listening on port + PORT'));
+app.listen(PORT, () => console.log('Example app listening on port ' + PORT));
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://mongo ds135290.mlab.com:35290/fast-beyond-22100 -u ${process.env.USERNAME} -p ${process.env.PASSWORD}', {
